@@ -22,6 +22,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -38,6 +41,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     kapt {
@@ -74,10 +78,17 @@ dependencies {
     implementation(libs.bundles.ktor)
     implementation(libs.gson)
 
+    // Paging
+    implementation(libs.bundles.paging)
+
+    // Loging
+    implementation(libs.timber)
+
     // Image loading
     implementation(libs.bundles.coil)
 
     // Testing
+    testImplementation(libs.paging.test)
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.unitTesting)
     androidTestImplementation(platform(libs.androidx.compose.bom))
