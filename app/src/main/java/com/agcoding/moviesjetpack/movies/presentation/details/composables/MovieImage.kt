@@ -5,10 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,8 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.agcoding.moviesjetpack.core.presentation.composables.buttons.BackButton
 import com.agcoding.moviesjetpack.core.presentation.images.MainImage
 import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 
@@ -39,18 +37,12 @@ fun MovieImage(
                 .fillMaxWidth()
                 .height(280.dp)
         )
-        IconButton(
-            onClick = onBackClick,
+        BackButton(
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .statusBarsPadding()
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "back button",
-                tint = Color.White
-            )
-        }
+                .statusBarsPadding(),
+            onClick = onBackClick
+        )
         Text(
             text = title,
             color = Color.White,
@@ -65,7 +57,8 @@ fun MovieImage(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true, backgroundColor = 0xFF4DB6AC)
+@Preview(showBackground = true, showSystemUi = true)
+@PreviewLightDark()
 @Composable
 fun MovieImagePreview() {
     MoviesJetpackTheme {

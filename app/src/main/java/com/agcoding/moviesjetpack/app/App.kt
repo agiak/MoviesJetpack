@@ -12,13 +12,14 @@ import com.agcoding.moviesjetpack.core.presentation.ext.sharedViewModel
 import com.agcoding.moviesjetpack.movies.presentation.SelectedMovieViewModel
 import com.agcoding.moviesjetpack.movies.presentation.details.MovieDetailScreenRoot
 import com.agcoding.moviesjetpack.movies.presentation.list.composables.MoviesListScreenRoot
+import com.agcoding.moviesjetpack.search.presentation.SearchScreenRoot
 import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
+import timber.log.Timber
 
 @Composable
 fun App() {
     MoviesJetpackTheme {
         val navController = rememberNavController()
-
         NavHost(
             navController = navController,
             startDestination = Route.MoviesGraph
@@ -40,6 +41,10 @@ fun App() {
                             navController.navigate(
                                 Route.MovieDetail(movie.id)
                             )
+                        },
+                        onSearchClick = {
+                            Timber.d("On search click")
+                            navController.navigate(Route.Search)
                         }
                     )
                 }
@@ -50,15 +55,33 @@ fun App() {
 
                     val selectedMovie by selectedMovieViewModel.selectedMovie.collectAsStateWithLifecycle()
 
-                    LaunchedEffect(selectedMovie) {
-                        selectedMovie?.let {
-                            //viewModel.onAction(BookDetailAction.OnSelectedBookChange(it))
-                        }
-                    }
-
                     MovieDetailScreenRoot(
                         onBackClick = {
                             navController.navigateUp()
+                        },
+                        onSimilarMovieClick = { movie ->
+                            selectedMovieViewModel.onSelectMovie(movie)
+                            navController.navigate(
+                                Route.MovieDetail(movie.id)
+                            )
+                        }
+                    )
+                }
+
+                composable<Route.Search> { entry ->
+
+                    val selectedMovieViewModel =
+                        entry.sharedViewModel<SelectedMovieViewModel>(navController)
+
+                    SearchScreenRoot(
+                        onBackClick = {
+                            navController.navigateUp()
+                        },
+                        onMovieClick = { movie ->
+                            selectedMovieViewModel.onSelectMovie(movie)
+                            navController.navigate(
+                                Route.MovieDetail(movie.id)
+                            )
                         }
                     )
                 }

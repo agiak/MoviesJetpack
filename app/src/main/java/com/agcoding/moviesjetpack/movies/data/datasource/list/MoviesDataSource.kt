@@ -4,7 +4,7 @@ import com.agcoding.moviesjetpack.core.domain.DataError
 import com.agcoding.moviesjetpack.core.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.MoviesResponse
 
-interface MoviesDataSource {
+fun interface MoviesDataSource {
 
     suspend fun getMovies(page: Int, type: String): Result<MoviesResponse, DataError.Remote>
 }

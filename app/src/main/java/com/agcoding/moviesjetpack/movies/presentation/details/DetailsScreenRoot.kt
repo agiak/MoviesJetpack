@@ -40,6 +40,7 @@ import com.agcoding.moviesjetpack.ui.theme.primaryLight
 fun MovieDetailScreenRoot(
     viewModel: MovieDetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
+    onSimilarMovieClick: (Movie) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -48,7 +49,8 @@ fun MovieDetailScreenRoot(
     MovieDetailScreen(
         state = state,
         similarMovies = similarMoviesState,
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
+        onSimilarMovieClick = onSimilarMovieClick
     )
 }
 
@@ -57,6 +59,7 @@ private fun MovieDetailScreen(
     state: MovieDetailsState,
     similarMovies: LazyPagingItems<Movie>,
     onBackClick: () -> Unit,
+    onSimilarMovieClick: (Movie) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -102,7 +105,10 @@ private fun MovieDetailScreen(
                 Spacer(modifier = Modifier.height(32.dp))
                 CastList(state.credits.cast)
                 Spacer(modifier = Modifier.height(24.dp))
-                SimilarMoviesList(similarMovies = similarMovies, onMovieClick = {})
+                SimilarMoviesList(
+                    similarMovies = similarMovies,
+                    onMovieClick = { similarMovie -> onSimilarMovieClick(similarMovie) }
+                )
             }
         }
     }
@@ -141,7 +147,8 @@ fun MovieDetailsScreenPreview() {
                 )
             ),
             similarMovies = getDummyLazyPagingItems(),
-            onBackClick = {}
+            onBackClick = {},
+            onSimilarMovieClick = {}
         )
     }
 }

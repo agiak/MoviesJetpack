@@ -1,5 +1,6 @@
 package com.agcoding.moviesjetpack.movies.presentation.details.composables.similarMovies
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,18 +23,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agcoding.moviesjetpack.R
 import com.agcoding.moviesjetpack.core.presentation.images.MainImage
-import com.agcoding.moviesjetpack.movies.data.mappers.toMovie
-import com.agcoding.moviesjetpack.movies.data.movies
+import com.agcoding.moviesjetpack.movies.data.uiMovies
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 
 @Composable
 fun SimilarMovieItem(
     movie: Movie,
-    onMovieClick: (Long) -> Unit,
+    onMovieClick: (Movie) -> Unit,
 ) {
     Column(
-        modifier = Modifier.width(SIMILAR_MOVIE_ITEM_HEIGHT.dp)
+        modifier = Modifier
+            .width(SIMILAR_MOVIE_ITEM_HEIGHT.dp)
+            .clickable { onMovieClick(movie) }
     ) {
         MainImage(
             imageUrl = movie.imageUrl,
@@ -68,7 +70,7 @@ fun SimilarMovieItem(
 fun SimilarMovieItemPreview() {
     MoviesJetpackTheme {
         SimilarMovieItem(
-            movie = movies.map { it.toMovie() }[0],
+            movie = uiMovies[0],
             onMovieClick = {}
         )
     }

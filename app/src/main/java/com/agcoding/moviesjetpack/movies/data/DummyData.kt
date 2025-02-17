@@ -1,5 +1,6 @@
 package com.agcoding.moviesjetpack.movies.data
 
+import com.agcoding.moviesjetpack.movies.data.mappers.toMovie
 import com.agcoding.moviesjetpack.movies.data.network.MovieNetwork
 
 val movies = listOf(
@@ -68,3 +69,5 @@ val movies = listOf(
         voteCount = 7535
     )
 )
+
+val uiMovies = movies.map { it.toMovie() }

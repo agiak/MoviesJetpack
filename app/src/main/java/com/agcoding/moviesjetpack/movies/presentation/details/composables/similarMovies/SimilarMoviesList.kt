@@ -1,13 +1,11 @@
 package com.agcoding.moviesjetpack.movies.presentation.details.composables.similarMovies
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
+import com.agcoding.moviesjetpack.core.presentation.composables.loaders.MainLoader
 import com.agcoding.moviesjetpack.core.presentation.composables.messages.ErrorMessage
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItems
@@ -46,7 +45,7 @@ fun SimilarMoviesList(
         Spacer(modifier = Modifier.height(8.dp))
         when (val state = similarMovies.loadState.refresh) {
             is LoadState.Error -> ErrorMessage(state.error.message ?: "")
-            LoadState.Loading -> CircularProgressIndicator()
+            LoadState.Loading -> MainLoader(modifier = Modifier.height(SIMILAR_MOVIE_ITEM_HEIGHT.dp))
             else -> {
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
@@ -66,21 +65,12 @@ fun SimilarMoviesList(
                     }
                     item {
                         if (similarMovies.loadState.append is LoadState.Loading) {
-                            CircularProgressIndicator()
+                            MainLoader(modifier = Modifier.height(SIMILAR_MOVIE_ITEM_HEIGHT.dp))
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun SimilarMoviesLoader() {
-    Box(
-        modifier = Modifier.height(SIMILAR_MOVIE_ITEM_HEIGHT.dp),
-    ) {
-        CircularProgressIndicator()
     }
 }
 

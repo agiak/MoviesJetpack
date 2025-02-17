@@ -25,7 +25,7 @@ fun CastItem(
         modifier = Modifier.width(124.dp)
     ) {
         MainImage(
-            imageUrl = cast.image,
+            imageUrl = cast.image ?: "",
             modifier = Modifier
                 .size(124.dp)
                 .clip(RoundedCornerShape(6.dp))

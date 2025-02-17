@@ -17,7 +17,8 @@ import kotlinx.serialization.json.Json
 
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 private const val HEADER_AUTH = "Authorization"
-private const val AUTH_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MjhkYjc0OGQ0ZDczOGEyMjhmNGM4OGVkYzA1YTI3NSIsInN1YiI6IjY0ODA5NWNmOTkyNTljMDBlMmYyZDljMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.T9BMoyeYnCgihW0iOXFBaEVyIPF6Z8BG3GiUKxmK8Lw"
+private const val AUTH_KEY =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MjhkYjc0OGQ0ZDczOGEyMjhmNGM4OGVkYzA1YTI3NSIsIm5iZiI6MTY4NjE0ODU1OS40MDQsInN1YiI6IjY0ODA5NWNmOTkyNTljMDBlMmYyZDljMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CDJiCkhF_dJQSUsAaWZUaXn3hDqRdeQZASJBcjykJSM"
 
 object HttpClientFactory {
 
