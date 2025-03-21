@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,11 +34,13 @@ fun CastItem(
         Text(
             text = cast.name,
             style = TextStyle(fontWeight = FontWeight.W300, fontSize = 12.sp),
+            color = MaterialTheme.colorScheme.onBackground,
             maxLines = 2,
         )
         Text(
             text = cast.character,
             style = TextStyle(fontWeight = FontWeight.Thin, fontSize = 10.sp),
+            color = MaterialTheme.colorScheme.onBackground,
             maxLines = 2
         )
     }

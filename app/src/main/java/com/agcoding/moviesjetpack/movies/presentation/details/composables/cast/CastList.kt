@@ -7,17 +7,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agcoding.moviesjetpack.movies.domain.details.CastDetails
 import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
-import com.agcoding.moviesjetpack.ui.theme.primaryLight
 
 @Composable
 fun CastList(
@@ -28,7 +29,8 @@ fun CastList(
     ) {
         Text(
             text = "Cast",
-            style = TextStyle(fontWeight = FontWeight.Bold, color = primaryLight, fontSize = 18.sp)
+            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp),
+            color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(
@@ -42,6 +44,7 @@ fun CastList(
 }
 
 @Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CastListPreview() {
     val castList = listOf(

@@ -13,6 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -73,7 +74,7 @@ private fun MovieDetailScreen(
             )
             Column(
                 modifier = Modifier
-                    .background(Color.White)
+                    .background(MaterialTheme.colorScheme.background)
                     .clip(
                         RoundedCornerShape(
                             topStart = 32.dp,
@@ -89,19 +90,21 @@ private fun MovieDetailScreen(
                     text = releaseDate,
                     style = TextStyle(
                         fontWeight = FontWeight.Light
-                    )
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 RatingBar(rating = rating)
                 Spacer(modifier = Modifier.height(2.dp))
-                Text(text = type)
+                Text(text = type, color = MaterialTheme.colorScheme.onBackground)
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     text = "Description",
-                    style = TextStyle(color = primaryLight, fontSize = 16.sp)
+                    style = TextStyle(color = primaryLight, fontSize = 16.sp),
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.height(2.dp))
-                Text(text = description)
+                Text(text = description, color = MaterialTheme.colorScheme.onBackground)
                 Spacer(modifier = Modifier.height(32.dp))
                 CastList(state.credits.cast)
                 Spacer(modifier = Modifier.height(24.dp))

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agcoding.moviesjetpack.R
@@ -47,7 +49,8 @@ fun SimilarMovieItem(
             text = movie.title,
             style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold),
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onBackground
         )
         Row(
             modifier = Modifier.padding(vertical = 4.dp),
@@ -55,17 +58,20 @@ fun SimilarMovieItem(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = movie.rating.toString()
+                text = movie.rating.toString(),
+                color = MaterialTheme.colorScheme.onBackground
             )
             Icon(
                 painter = painterResource(R.drawable.ic_rating),
-                contentDescription = null
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onBackground
             )
         }
     }
 }
 
 @Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 fun SimilarMovieItemPreview() {
     MoviesJetpackTheme {

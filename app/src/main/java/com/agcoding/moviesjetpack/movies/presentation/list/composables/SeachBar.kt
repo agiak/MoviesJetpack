@@ -44,7 +44,9 @@ fun SearchBar(
     OutlinedTextField(
         value = searchQuery,
         enabled = isEnable,
-        onValueChange = onSearchQueryChange,
+        onValueChange = {
+            onSearchQueryChange(it)
+        },
         shape = RoundedCornerShape(100),
         colors = OutlinedTextFieldDefaults.colors(
             cursorColor = MaterialTheme.colorScheme.onSurface,
@@ -52,7 +54,8 @@ fun SearchBar(
         ),
         placeholder = {
             Text(
-                text = stringResource(R.string.search_hint)
+                text = stringResource(R.string.search_hint),
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.65f)
             )
         },
         leadingIcon = {
@@ -84,7 +87,7 @@ fun SearchBar(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "",
-                        tint = MaterialTheme.colorScheme.surfaceContainer
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
