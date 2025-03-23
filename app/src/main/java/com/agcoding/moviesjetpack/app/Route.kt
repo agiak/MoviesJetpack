@@ -15,4 +15,10 @@ sealed interface Route {
 
     @Serializable
     data object Search : Route
+
+    @Serializable
+    data object MainGraph : Route
+
+    @Serializable
+    data object More : Route
 }

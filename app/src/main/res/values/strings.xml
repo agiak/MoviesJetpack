@@ -17,6 +17,10 @@
     <string name="movie_type_top_rated">Top Rated</string>
 
     <!-- Search -->
-    <string name="search_hint">Search a movie</string>
+    <string name="search_hint">Search movies</string>
+
+    <string name="movies">Movies</string>
+    <string name="search">Search</string>
+    <string name="more">More</string>
 
 </resources>

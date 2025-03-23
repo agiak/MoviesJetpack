@@ -22,7 +22,6 @@ class MoviesViewModel @Inject constructor(
     fun onEvent(event: MoviesUiEvent) {
         when (event) {
             is MoviesUiEvent.OnMovieClicked -> {}
-            MoviesUiEvent.OnSearchClicked -> {}
             is MoviesUiEvent.OnFavouriteClicked -> {
                 viewModelScope.launch {
                     moviesRepository.onFavouriteChanged(event.movie)

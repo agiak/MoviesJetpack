@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -32,7 +30,6 @@ import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 fun MoviesListScreenRoot(
     viewModel: MoviesViewModel = hiltViewModel(),
     onSelectedMovie: (Movie) -> Unit,
-    onSearchClick: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -48,8 +45,7 @@ fun MoviesListScreenRoot(
                 )
             )
         },
-        onSelectedMovie = onSelectedMovie,
-        onSearchClick = onSearchClick
+        onSelectedMovie = onSelectedMovie
     )
 }
 
@@ -59,22 +55,10 @@ fun MoviesListScreen(
     movies: LazyPagingItems<Movie>,
     onFavouriteClicked: (Movie) -> Unit,
     onSelectedMovie: (Movie) -> Unit,
-    onSearchClick: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(vertical = 32.dp)
     ) {
-        SearchBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 24.dp),
-            searchQuery = "",
-            onSearchQueryChange = {},
-            onTextFieldClicked = { onSearchClick() },
-            onImeSearch = {},
-            isEnable = false
-        )
         Box(
             modifier = Modifier
                 .fillMaxSize(),
@@ -123,8 +107,7 @@ fun MoviesListScreenPreview() {
             state = MoviesListUiState(),
             movies = getDummyLazyPagingItems(),
             onFavouriteClicked = {},
-            onSelectedMovie = {},
-            onSearchClick = {}
+            onSelectedMovie = {}
         )
     }
 }

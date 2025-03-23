@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +18,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -30,7 +28,6 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.agcoding.moviesjetpack.core.presentation.composables.buttons.BackButton
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.list.composables.SearchBar
 import com.agcoding.moviesjetpack.search.presentation.composables.SearchItem
@@ -39,7 +36,6 @@ import timber.log.Timber
 
 @Composable
 fun SearchScreenRoot(
-    onBackClick: () -> Unit,
     onMovieClick: (Movie) -> Unit,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
@@ -47,7 +43,6 @@ fun SearchScreenRoot(
     val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle()
 
     SearchScreen(
-        onBackClick = onBackClick,
         onMovieClick = onMovieClick,
         searchItems = searchItems,
         searchQuery = searchQuery.value,
@@ -59,7 +54,6 @@ fun SearchScreenRoot(
 
 @Composable
 fun SearchScreen(
-    onBackClick: () -> Unit,
     onMovieClick: (Movie) -> Unit,
     onSearchQueryChange: (String) -> Unit,
     searchItems: LazyPagingItems<Movie>,
@@ -73,29 +67,20 @@ fun SearchScreen(
             .statusBarsPadding()
             .padding(vertical = 24.dp)
     ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            BackButton(
-                modifier = Modifier.size(24.dp),
-                onClick = onBackClick
-            )
-            SearchBar(
-                isAutoFocus = true,
-                searchQuery = searchQuery,
-                onSearchQueryChange = { query ->
-                    onSearchQueryChange(query)
-                },
-                onImeSearch = {
-                    onSearchQueryChange(searchQuery)
-                },
-                onTextFieldClicked = {},
-                modifier = Modifier
-                    .fillMaxWidth(),
-            )
-        }
+        SearchBar(
+            isAutoFocus = true,
+            searchQuery = searchQuery,
+            onSearchQueryChange = { query ->
+                onSearchQueryChange(query)
+            },
+            onImeSearch = {
+                onSearchQueryChange(searchQuery)
+            },
+            onTextFieldClicked = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+        )
         Spacer(modifier = Modifier.size(12.dp))
         AnimatedVisibility(
             visible = searchItems.itemCount != 0,
@@ -133,7 +118,6 @@ fun SearchScreen(
 fun SearchScreenRootPreview() {
     MoviesJetpackTheme {
         SearchScreenRoot(
-            onBackClick = {},
             onMovieClick = {},
         )
     }

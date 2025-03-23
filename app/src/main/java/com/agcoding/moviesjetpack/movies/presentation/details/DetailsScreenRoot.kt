@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -30,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
+import com.agcoding.moviesjetpack.movies.presentation.details.composables.GenreChips
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.MovieImage
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.cast.CastList
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItems
@@ -93,10 +95,13 @@ private fun MovieDetailScreen(
                     ),
                     color = MaterialTheme.colorScheme.onBackground
                 )
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 RatingBar(rating = rating)
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(text = type, color = MaterialTheme.colorScheme.onBackground)
+                Spacer(modifier = Modifier.height(16.dp))
+                GenreChips(
+                    genres = type,
+                    modifier = Modifier.fillMaxWidth()
+                )
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     text = "Description",
