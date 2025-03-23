@@ -22,7 +22,8 @@ import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesDataSource: MoviesDataSource,
-    private val moviesPagingSource: MoviesPagingSource,
+    private val popularMoviesPagingSource: MoviesPagingSource,
+    private val nowPlayingMoviesPagingSource: MoviesPagingSource,
     private val favouritesUseCase: FavouritesUseCase,
     private val isFavouriteUseCase: IsFavouriteUseCase,
     private val dispatchers: IDispatchers
@@ -34,8 +35,15 @@ class MoviesRepositoryImpl @Inject constructor(
     ): Result<MoviesResponse, DataError.Remote> =
         moviesDataSource.getMovies(page, type)
 
-    override val moviesPagingFlow: Flow<PagingData<Movie>>
-        get() = MoviesPagerFactory.create(moviesPagingSource).flow.map {
+    override val popularMoviesPagingFlow: Flow<PagingData<Movie>>
+        get() = MoviesPagerFactory.create(popularMoviesPagingSource).flow.map {
+            it.map { movieNetwork ->
+                movieNetwork.toMovie().apply { isFavourite = isFavouriteUseCase(this.id) }
+            }
+        }
+
+    override val nowPlayingMoviesPagingFlow: Flow<PagingData<Movie>>
+        get() = MoviesPagerFactory.create(nowPlayingMoviesPagingSource).flow.map {
             it.map { movieNetwork ->
                 movieNetwork.toMovie().apply { isFavourite = isFavouriteUseCase(this.id) }
             }

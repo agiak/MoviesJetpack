@@ -18,22 +18,25 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
+import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
-class MoviesModule {
+object MoviesModule {
 
     @Provides
     fun providesMoviesRepository(
         moviesDataSource: MoviesDataSource,
-        moviesPagingSource: MoviesPagingSource,
+        @Named("popular") popularMoviesPagingSource: MoviesPagingSource,
+        @Named("nowPlaying") nowPlayingMoviesPagingSource: MoviesPagingSource,
         favouritesUseCase: FavouritesUseCase,
         dispatchers: IDispatchers,
         isFavouriteUseCase: IsFavouriteUseCase
     ): MoviesRepository =
         MoviesRepositoryImpl(
             moviesDataSource,
-            moviesPagingSource,
+            popularMoviesPagingSource,
+            nowPlayingMoviesPagingSource,
             favouritesUseCase,
             isFavouriteUseCase,
             dispatchers,
@@ -48,10 +51,19 @@ class MoviesModule {
         MovieDetailsDataSourceImpl(httpClient)
 
     @Provides
-    fun providesMoviesPagingSource(moviesDataSource: MoviesDataSource): MoviesPagingSource =
+    @Named("popular")
+    fun providesPopularMoviesPagingSource(moviesDataSource: MoviesDataSource): MoviesPagingSource =
         MoviesPagingSource(
             dataSource = moviesDataSource,
             moviesType = "popular"
+        )
+
+    @Provides
+    @Named("nowPlaying")
+    fun providesNowPlayingMoviesPagingSource(moviesDataSource: MoviesDataSource): MoviesPagingSource =
+        MoviesPagingSource(
+            dataSource = moviesDataSource,
+            moviesType = "now_playing"
         )
 }
 

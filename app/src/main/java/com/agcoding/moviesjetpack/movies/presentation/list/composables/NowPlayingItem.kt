@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -38,33 +37,30 @@ import com.agcoding.moviesjetpack.core.presentation.images.MainImage
 import com.agcoding.moviesjetpack.movies.data.uiMovies
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
-import kotlin.math.roundToInt
 
 @Composable
-fun MovieItem(
+fun NowPlayingItem(
     movie: Movie,
     onFavouriteClicked: (Movie) -> Unit,
     onClick: (Movie) -> Unit,
-    isHorizontal: Boolean = false,
-    isPopular: Boolean = false
 ) {
     Column(
         modifier = Modifier
-            .width(if (isHorizontal) 160.dp else 200.dp)
+            .width(280.dp)
             .clickable { onClick(movie) }
     ) {
         // Poster Card
         Card(
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
             Box {
                 MainImage(
                     imageUrl = movie.imageUrl,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(0.67f) // Standard movie poster ratio
-                        .clip(RoundedCornerShape(12.dp)),
+                        .aspectRatio(1.5f) // Wider aspect ratio for now playing
+                        .clip(RoundedCornerShape(16.dp)),
                     contentScale = ContentScale.Crop
                 )
 
@@ -73,13 +69,13 @@ fun MovieItem(
                     onClick = { onFavouriteClicked(movie) },
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(4.dp)
+                        .padding(8.dp)
                 ) {
                     Icon(
                         imageVector = if (movie.isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = if (movie.isFavourite) "Remove from favorites" else "Add to favorites",
                         tint = if (movie.isFavourite) Color.Red else Color.White,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }
@@ -87,41 +83,57 @@ fun MovieItem(
 
         // Content below poster
         Column(
-            modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)
         ) {
-            Text(
-                text = movie.title,
-                style = MaterialTheme.typography.titleSmall.copy(
-                    fontWeight = FontWeight.Bold
-                ),
-                maxLines = if (isHorizontal) 2 else 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = movie.title,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
+                )
 
-            if (isPopular) {
-                Spacer(modifier = Modifier.height(4.dp))
-                // Rating stars
                 Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                    modifier = Modifier.padding(start = 8.dp)
                 ) {
-                    val rating = (movie.rating / 2).roundToInt()
-                    repeat(5) { index ->
-                        Icon(
-                            imageVector = if (index < rating) Icons.Default.Star else Icons.Default.StarBorder,
-                            contentDescription = null,
-                            tint = if (index < rating) Color(0xFFFFC107) else Color.Gray,
-                            modifier = Modifier.size(14.dp)
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = Color(0xFFFFC107),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = movie.rating.toString(),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Medium
                         )
-                    }
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = movie.releaseDate,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = movie.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -129,26 +141,12 @@ fun MovieItem(
 
 @Composable
 @PreviewLightDark
-fun MovieItemPreview() {
+fun NowPlayingItemPreview() {
     MoviesJetpackTheme {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            MovieItem(
-                movie = uiMovies[0],
-                onFavouriteClicked = {},
-                onClick = {},
-                isHorizontal = true,
-                isPopular = true
-            )
-            MovieItem(
-                movie = uiMovies[0],
-                onFavouriteClicked = {},
-                onClick = {},
-                isHorizontal = true,
-                isPopular = false
-            )
-        }
+        NowPlayingItem(
+            movie = uiMovies[0],
+            onFavouriteClicked = {},
+            onClick = {}
+        )
     }
-}
+} 

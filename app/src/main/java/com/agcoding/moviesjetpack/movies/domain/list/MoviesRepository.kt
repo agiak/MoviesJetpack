@@ -13,7 +13,8 @@ interface MoviesRepository {
         type: String
     ): Result<MoviesResponse, DataError.Remote>
 
-    val moviesPagingFlow: Flow<PagingData<Movie>>
+    val popularMoviesPagingFlow: Flow<PagingData<Movie>>
+    val nowPlayingMoviesPagingFlow: Flow<PagingData<Movie>>
 
     suspend fun onFavouriteChanged(movie: Movie)
 }
