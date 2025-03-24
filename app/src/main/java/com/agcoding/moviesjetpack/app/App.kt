@@ -18,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.agcoding.moviesjetpack.core.presentation.composables.navigation.BottomNavItem
 import com.agcoding.moviesjetpack.core.presentation.composables.navigation.BottomNavigationBar
 import com.agcoding.moviesjetpack.core.presentation.ext.sharedViewModel
-import com.agcoding.moviesjetpack.more.presentation.MoreScreen
+import com.agcoding.moviesjetpack.favourites.presentation.FavouritesScreenRoot
 import com.agcoding.moviesjetpack.movies.presentation.SelectedMovieViewModel
 import com.agcoding.moviesjetpack.movies.presentation.details.MovieDetailScreenRoot
 import com.agcoding.moviesjetpack.movies.presentation.list.composables.MoviesListScreenRoot
@@ -34,7 +34,11 @@ fun App() {
             bottomBar = {
                 BottomNavigationBar(
                     navController = navController,
-                    items = listOf(BottomNavItem.Home, BottomNavItem.Search, BottomNavItem.More)
+                    items = listOf(
+                        BottomNavItem.Home,
+                        BottomNavItem.Search,
+                        BottomNavItem.Favourites
+                    )
                 )
             }
         ) { paddingValues ->
@@ -169,15 +173,25 @@ fun App() {
                         )
                     }
 
-                    composable<Route.More>(
+                    composable<Route.Favourites>(
                         enterTransition = {
                             fadeIn(animationSpec = tween(500))
                         },
                         exitTransition = {
                             fadeOut(animationSpec = tween(500))
                         }
-                    ) {
-                        MoreScreen()
+                    ) { entry ->
+                        val selectedMovieViewModel =
+                            entry.sharedViewModel<SelectedMovieViewModel>(navController)
+
+                        FavouritesScreenRoot(
+                            onMovieClick = { movie ->
+                                selectedMovieViewModel.onSelectMovie(movie)
+                                navController.navigate(
+                                    Route.MovieDetail(movie.id)
+                                )
+                            }
+                        )
                     }
                 }
             }

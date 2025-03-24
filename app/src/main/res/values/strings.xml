@@ -21,6 +21,6 @@
 
     <string name="movies">Movies</string>
     <string name="search">Search</string>
-    <string name="more">More</string>
+    <string name="favourites">Favourites</string>
 
 </resources>

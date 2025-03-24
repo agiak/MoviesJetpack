@@ -1,7 +1,7 @@
 package com.agcoding.moviesjetpack.core.presentation.composables.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.More
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import com.agcoding.moviesjetpack.R
@@ -24,9 +24,9 @@ sealed class BottomNavItem(
         labelResId = R.string.search
     )
 
-    data object More : BottomNavItem(
-        route = Route.More,
-        icon = Icons.AutoMirrored.Filled.More,
-        labelResId = R.string.more
+    data object Favourites : BottomNavItem(
+        route = Route.Favourites,
+        icon = Icons.Default.Favorite,
+        labelResId = R.string.favourites
     )
 }

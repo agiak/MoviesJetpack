@@ -21,4 +21,7 @@ interface FavouriteMovieDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM favourite_movies WHERE id = :movieId LIMIT 1)")
     suspend fun isMovieFavorite(movieId: Long): Boolean
+
+    @Query("SELECT * FROM favourite_movies WHERE id = :movieId LIMIT 1")
+    suspend fun getMovieById(movieId: Long): FavouriteMovieDB?
 }
