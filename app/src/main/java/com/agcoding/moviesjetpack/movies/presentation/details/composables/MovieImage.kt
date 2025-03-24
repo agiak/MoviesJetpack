@@ -1,12 +1,20 @@
 package com.agcoding.moviesjetpack.movies.presentation.details.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +37,9 @@ import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 fun MovieImage(
     imageUrl: String,
     title: String,
+    isFavorite: Boolean,
     onBackClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -59,12 +69,30 @@ fun MovieImage(
                     )
                 )
         )
-        BackButton(
+
+        // Top bar with back button and favorite
+        Row(
             modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(top = 48.dp, start = 16.dp),
-            onClick = onBackClick
-        )
+                .fillMaxWidth()
+                .padding(top = 48.dp, start = 16.dp, end = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            BackButton(onClick = onBackClick, modifier = Modifier.size(48.dp))
+
+            IconButton(
+                onClick = onFavoriteClick,
+                modifier = Modifier.size(48.dp)
+            ) {
+                Icon(
+                    imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                    tint = if (isFavorite) Color.Red else Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+        }
+        
         Column(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -92,6 +120,12 @@ fun MovieImage(
 @Composable
 fun MovieImagePreview() {
     MoviesJetpackTheme {
-        MovieImage(imageUrl = "", onBackClick = {}, title = "MovieRama movie")
+        MovieImage(
+            imageUrl = "",
+            title = "The Movie Title",
+            isFavorite = true,
+            onBackClick = {},
+            onFavoriteClick = {}
+        )
     }
 }

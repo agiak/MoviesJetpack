@@ -4,7 +4,9 @@ import com.agcoding.moviesjetpack.core.domain.dispatchers.IDispatchers
 import com.agcoding.moviesjetpack.storage.db.FavouriteMovieDao
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class IsFavouriteUseCaseImpl @Inject constructor(
     private val dispatchers: IDispatchers,
     private val localDao: FavouriteMovieDao,

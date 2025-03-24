@@ -2,7 +2,6 @@ package com.agcoding.moviesjetpack.movies.presentation.list.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,14 +13,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +39,6 @@ import kotlin.math.roundToInt
 @Composable
 fun MovieItem(
     movie: Movie,
-    onFavouriteClicked: (Movie) -> Unit,
     onClick: (Movie) -> Unit,
     isHorizontal: Boolean = false,
     isPopular: Boolean = false
@@ -58,31 +53,14 @@ fun MovieItem(
             shape = RoundedCornerShape(12.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
-            Box {
-                MainImage(
-                    imageUrl = movie.imageUrl,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(0.67f) // Standard movie poster ratio
-                        .clip(RoundedCornerShape(12.dp)),
-                    contentScale = ContentScale.Crop
-                )
-
-                // Favorite button
-                IconButton(
-                    onClick = { onFavouriteClicked(movie) },
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(4.dp)
-                ) {
-                    Icon(
-                        imageVector = if (movie.isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = if (movie.isFavourite) "Remove from favorites" else "Add to favorites",
-                        tint = if (movie.isFavourite) Color.Red else Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
+            MainImage(
+                imageUrl = movie.imageUrl,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(0.67f) // Standard movie poster ratio
+                    .clip(RoundedCornerShape(12.dp)),
+                contentScale = ContentScale.Crop
+            )
         }
 
         // Content below poster
@@ -129,26 +107,13 @@ fun MovieItem(
 
 @Composable
 @PreviewLightDark
-fun MovieItemPreview() {
+private fun MovieItemPreview() {
     MoviesJetpackTheme {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            MovieItem(
-                movie = uiMovies[0],
-                onFavouriteClicked = {},
-                onClick = {},
-                isHorizontal = true,
-                isPopular = true
-            )
-            MovieItem(
-                movie = uiMovies[0],
-                onFavouriteClicked = {},
-                onClick = {},
-                isHorizontal = true,
-                isPopular = false
-            )
-        }
+        MovieItem(
+            movie = uiMovies[0],
+            onClick = {},
+            isHorizontal = true,
+            isPopular = true
+        )
     }
 }

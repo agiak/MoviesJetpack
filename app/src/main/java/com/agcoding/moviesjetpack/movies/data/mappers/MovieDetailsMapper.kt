@@ -1,5 +1,6 @@
 package com.agcoding.moviesjetpack.movies.data.mappers
 
+import com.agcoding.moviesjetpack.core.data.models.FavouriteMovieDB
 import com.agcoding.moviesjetpack.core.presentation.ext.mapToDate
 import com.agcoding.moviesjetpack.core.presentation.ext.roundToTwoDecimal
 import com.agcoding.moviesjetpack.movies.data.network.details.MovieDetailsResponse
@@ -18,3 +19,11 @@ fun MovieDetailsResponse.toMovieDetails(isFavourite: Boolean = false): MovieDeta
     )
 
 fun MovieDetailsResponse.getType(): String = genres?.joinToString(", ") { it.name.toString() } ?: ""
+
+fun MovieDetails.toFavouriteMovieDB(): FavouriteMovieDB = FavouriteMovieDB(
+    id = id,
+    title = title,
+    poster = imageUrl,
+    rating = rating,
+    releaseDate = releaseDate
+)

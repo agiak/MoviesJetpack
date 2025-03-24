@@ -53,7 +53,8 @@ fun MovieDetailScreenRoot(
         state = state,
         similarMovies = similarMoviesState,
         onBackClick = onBackClick,
-        onSimilarMovieClick = onSimilarMovieClick
+        onSimilarMovieClick = onSimilarMovieClick,
+        onFavoriteClick = { viewModel.onAction(MovieDetailAction.OnFavouriteClicked) }
     )
 }
 
@@ -63,6 +64,7 @@ private fun MovieDetailScreen(
     similarMovies: LazyPagingItems<Movie>,
     onBackClick: () -> Unit,
     onSimilarMovieClick: (Movie) -> Unit,
+    onFavoriteClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -71,8 +73,10 @@ private fun MovieDetailScreen(
         with(state.details) {
             MovieImage(
                 imageUrl = imageUrl,
+                title = title,
+                isFavorite = isFavourite,
                 onBackClick = onBackClick,
-                title = title
+                onFavoriteClick = onFavoriteClick
             )
             Column(
                 modifier = Modifier
@@ -156,7 +160,8 @@ fun MovieDetailsScreenPreview() {
             ),
             similarMovies = getDummyLazyPagingItems(),
             onBackClick = {},
-            onSimilarMovieClick = {}
+            onSimilarMovieClick = {},
+            onFavoriteClick = {}
         )
     }
 }

@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,17 +29,6 @@ class MoviesViewModel @Inject constructor(
             nowPlayingMovies = moviesRepository.nowPlayingMoviesPagingFlow.filterDuplicates()
                 .cachedIn(viewModelScope)
         )
-    }
-
-    fun onEvent(event: MoviesUiEvent) {
-        when (event) {
-            is MoviesUiEvent.OnMovieClicked -> {}
-            is MoviesUiEvent.OnFavouriteClicked -> {
-                viewModelScope.launch {
-                    moviesRepository.onFavouriteChanged(event.movie)
-                }
-            }
-        }
     }
 
     private fun Flow<PagingData<Movie>>.filterDuplicates(): Flow<PagingData<Movie>> =
