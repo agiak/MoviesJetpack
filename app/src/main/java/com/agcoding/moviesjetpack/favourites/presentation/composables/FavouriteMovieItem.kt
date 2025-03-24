@@ -106,7 +106,6 @@ fun FavouriteMovieItem(
                     }
                 }
 
-                // Movie Info
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {

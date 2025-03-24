@@ -92,4 +92,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.unitTesting)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+
+    // Splash screen
+    implementation(libs.androidx.splash.screen)
 }

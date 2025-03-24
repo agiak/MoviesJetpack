@@ -25,6 +25,7 @@ hilt = "2.51"
 ktor = "2.3.4"
 gson = "2.10"
 timber = "5.0.1"
+splash-screen = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -98,6 +99,9 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+# Splash Screen
+androidx-splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-screen" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
