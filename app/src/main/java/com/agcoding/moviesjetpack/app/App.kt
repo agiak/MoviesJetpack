@@ -1,9 +1,12 @@
 package com.agcoding.moviesjetpack.app
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -13,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.agcoding.moviesjetpack.core.presentation.composables.navigation.BottomNavItem
@@ -29,17 +33,32 @@ import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 fun App() {
     MoviesJetpackTheme {
         val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        // Show bottom bar only on main screens
+        val showBottomBar = currentRoute in listOf(
+            Route.MoviesList::class.qualifiedName,
+            Route.Search::class.qualifiedName,
+            Route.Favourites::class.qualifiedName
+        )
 
         Scaffold(
             bottomBar = {
-                BottomNavigationBar(
-                    navController = navController,
-                    items = listOf(
-                        BottomNavItem.Home,
-                        BottomNavItem.Search,
-                        BottomNavItem.Favourites
+                AnimatedVisibility(
+                    visible = showBottomBar,
+                    enter = slideInVertically(initialOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { it })
+                ) {
+                    BottomNavigationBar(
+                        navController = navController,
+                        items = listOf(
+                            BottomNavItem.Home,
+                            BottomNavItem.Search,
+                            BottomNavItem.Favourites
+                        )
                     )
-                )
+                }
             }
         ) { paddingValues ->
             NavHost(

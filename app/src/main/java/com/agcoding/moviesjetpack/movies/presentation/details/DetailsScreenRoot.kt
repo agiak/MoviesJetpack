@@ -1,5 +1,6 @@
 package com.agcoding.moviesjetpack.movies.presentation.details
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -66,7 +67,8 @@ private fun MovieDetailScreen(
     onFavoriteClick: () -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize()
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.fillMaxSize(),
     ) {
         item {
             MovieImage(
@@ -82,7 +84,7 @@ private fun MovieDetailScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp)
             ) {
                 Text(
                     text = state.details.title,
@@ -123,17 +125,11 @@ private fun MovieDetailScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 CastList(state.credits.cast)
-
-                Spacer(modifier = Modifier.height(24.dp))
             }
         }
 
         item {
             ReviewsList(reviews)
-        }
-
-        item {
-            Spacer(modifier = Modifier.height(24.dp))
         }
 
         item {
