@@ -1,43 +1,38 @@
-package com.agcoding.moviesjetpack.movies.presentation.details.composables.similarMovies
+package com.agcoding.moviesjetpack.movies.presentation.details.composables.reviews
 
-import SimilarMovieItem
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.itemKey
 import com.agcoding.moviesjetpack.core.presentation.composables.loaders.MainLoader
 import com.agcoding.moviesjetpack.core.presentation.composables.messages.ErrorMessage
-import com.agcoding.moviesjetpack.movies.domain.list.Movie
-import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItems
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
+import com.agcoding.moviesjetpack.movies.domain.details.Review
 import com.agcoding.moviesjetpack.ui.theme.primaryLight
 
-internal const val SIMILAR_MOVIE_ITEM_HEIGHT = 124
-
 @Composable
-fun SimilarMoviesList(
-    similarMovies: LazyPagingItems<Movie>,
-    onMovieClick: (Movie) -> Unit
+fun ReviewsList(
+    reviews: LazyPagingItems<Review>
 ) {
-    when (val state = similarMovies.loadState.refresh) {
+    when (val state = reviews.loadState.refresh) {
         is LoadState.Error -> ErrorMessage(state.error.message ?: "")
-        LoadState.Loading -> MainLoader(modifier = Modifier.height(SIMILAR_MOVIE_ITEM_HEIGHT.dp))
+        LoadState.Loading -> MainLoader(Modifier.size(48.dp))
         else -> {
-            if (similarMovies.itemCount == 0) {
+            if (reviews.itemCount == 0) {
                 return
             }
 
@@ -47,49 +42,41 @@ fun SimilarMoviesList(
                     .padding(vertical = 8.dp)
             ) {
                 Text(
-                    text = "Similar movies",
+                    text = "Reviews",
                     style = TextStyle(
                         fontSize = 16.sp,
                         color = primaryLight
                     ),
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
+
                 Spacer(modifier = Modifier.height(8.dp))
+
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
                     items(
-                        count = similarMovies.itemCount,
-                        key = similarMovies.itemKey { it.id },
-                    ) { index ->
-                        val item = similarMovies[index]
-                        if (item != null) {
-                            SimilarMovieItem(
-                                movie = item,
-                                onMovieClick = { onMovieClick(item) },
-                            )
-                        }
+                        items = (0 until reviews.itemCount).mapNotNull { reviews[it] },
+                        key = { it.id ?: "" }
+                    ) { review ->
+                        ReviewItem(review = review)
                     }
+
                     item {
-                        if (similarMovies.loadState.append is LoadState.Loading) {
-                            MainLoader(modifier = Modifier.height(SIMILAR_MOVIE_ITEM_HEIGHT.dp))
+                        if (reviews.loadState.append is LoadState.Loading) {
+                            Box(
+                                modifier = Modifier
+                                    .size(200.dp)
+                                    .padding(8.dp)
+                            ) {
+                                MainLoader(Modifier.size(48.dp))
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
-
-@PreviewLightDark
-@Composable
-fun SimilarMoviesListPreview() {
-    MoviesJetpackTheme {
-        SimilarMoviesList(
-            similarMovies = getDummyLazyPagingItems(),
-            onMovieClick = {}
-        )
-    }
-}
+} 

@@ -45,6 +45,7 @@ class MovieDetailViewModel @Inject constructor(
     )
 
     val similarMovies by lazy { repository.similarMoviesPagingFlow }
+    val reviews by lazy { repository.reviewsPagingFlow }
 
     fun onAction(action: MovieDetailAction) {
         when (action) {

@@ -1,35 +1,31 @@
 package com.agcoding.moviesjetpack.movies.data.network.details
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ReviewsResponse(
-    @SerializedName("results") val reviewNetworks: List<ReviewNetwork>,
-    @SerializedName("page") val page: Int,
-    @SerializedName("total_pages") val totalPages: Int,
-    @SerializedName("total_results") val totalResults: Int
+    @SerialName("results") val reviewNetworks: List<ReviewNetwork>? = null,
+    @SerialName("page") val page: Int? = null,
+    @SerialName("total_pages") val totalPages: Int? = null,
+    @SerialName("total_results") val totalResults: Int? = null,
 )
 
+@Serializable
 data class ReviewNetwork(
-    @SerializedName("id") val id: String,
-    @SerializedName("author") val author: String,
-    @SerializedName("author_details") val authorDetails: AuthorDetails,
-    @SerializedName("content") val content: String,
-    @SerializedName("created_at") val createdAt: String,
-    @SerializedName("updated_at") val updatedAt: String,
-    @SerializedName("url") val url: String
+    @SerialName("id") val id: String? = null,
+    @SerialName("author") val author: String? = null,
+    @SerialName("author_details") val authorDetailsNetwork: AuthorDetailsNetwork? = null,
+    @SerialName("content") val content: String? = null,
+    @SerialName("created_at") val createdAt: String? = null,
+    @SerialName("updated_at") val updatedAt: String? = null,
+    @SerialName("url") val url: String? = null,
 )
 
-data class AuthorDetails(
-    @SerializedName("avatar_path") val avatarPath: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("rating") val rating: Double,
-    @SerializedName("username") val username: String
+@Serializable
+data class AuthorDetailsNetwork(
+    @SerialName("avatar_path") val avatarPath: String? = null,
+    @SerialName("name") val name: String? = null,
+    @SerialName("rating") val rating: Double? = null,
+    @SerialName("username") val username: String? = null,
 )
-
-data class Review(
-    val id: String,
-    val author: String,
-    val content: String,
-    val rating: Double
-)
-

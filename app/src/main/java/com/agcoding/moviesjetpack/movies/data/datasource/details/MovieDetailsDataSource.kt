@@ -4,6 +4,7 @@ import com.agcoding.moviesjetpack.core.domain.DataError
 import com.agcoding.moviesjetpack.core.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.details.CreditsResponse
 import com.agcoding.moviesjetpack.movies.data.network.details.MovieDetailsResponse
+import com.agcoding.moviesjetpack.movies.data.network.details.ReviewsResponse
 import com.agcoding.moviesjetpack.movies.data.network.details.SimilarResponse
 
 interface MovieDetailsDataSource {
@@ -13,4 +14,6 @@ interface MovieDetailsDataSource {
     suspend fun getCredits(id: Long): Result<CreditsResponse, DataError.Remote>
 
     suspend fun getSimilarMovies(id: Long, page: Int): Result<SimilarResponse, DataError.Remote>
+
+    suspend fun getReviews(id: Long, page: Int): Result<ReviewsResponse, DataError.Remote>
 }

@@ -4,6 +4,7 @@ import com.agcoding.moviesjetpack.core.domain.DataError
 import com.agcoding.moviesjetpack.core.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.details.CreditsResponse
 import com.agcoding.moviesjetpack.movies.data.network.details.MovieDetailsResponse
+import com.agcoding.moviesjetpack.movies.data.network.details.ReviewsResponse
 import com.agcoding.moviesjetpack.movies.data.network.details.SimilarResponse
 import com.agcoding.moviesjetpack.network.safeCall
 import io.ktor.client.HttpClient
@@ -56,6 +57,25 @@ class MovieDetailsDataSourceImpl @Inject constructor(
                         "movie",
                         id.toString(),
                         "similar"
+                    )
+                }
+                parameter("language", "en-US")
+                parameter("page", page.toString())
+            }
+        }
+    }
+
+    override suspend fun getReviews(
+        id: Long,
+        page: Int
+    ): Result<ReviewsResponse, DataError.Remote> {
+        return safeCall<ReviewsResponse> {
+            httpClient.get {
+                url {
+                    path(
+                        "movie",
+                        id.toString(),
+                        "reviews"
                     )
                 }
                 parameter("language", "en-US")
