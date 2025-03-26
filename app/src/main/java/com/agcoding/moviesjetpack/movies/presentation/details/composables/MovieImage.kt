@@ -52,17 +52,16 @@ fun MovieImage(
                 .fillMaxWidth()
                 .height(400.dp)
         )
-        // Dark scrim overlay with multiple gradient stops
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
-                            Color.Black.copy(alpha = 0.4f), // Top overlay
-                            Color.Black.copy(alpha = 0.0f), // Transparent middle
-                            Color.Black.copy(alpha = 0.6f), // Gradual darkening
-                            Color.Black.copy(alpha = 0.9f)  // Dark bottom
+                            Color.Black.copy(alpha = 0.4f),
+                            Color.Black.copy(alpha = 0.0f),
+                            Color.Black.copy(alpha = 0.6f),
+                            Color.Black.copy(alpha = 0.9f),
                         ),
                         startY = 0f,
                         endY = Float.POSITIVE_INFINITY
@@ -70,7 +69,6 @@ fun MovieImage(
                 )
         )
 
-        // Top bar with back button and favorite
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -116,7 +114,7 @@ fun MovieImage(
 }
 
 @Preview(showBackground = true, showSystemUi = true)
-@PreviewLightDark()
+@PreviewLightDark
 @Composable
 fun MovieImagePreview() {
     MoviesJetpackTheme {

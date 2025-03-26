@@ -64,7 +64,6 @@ fun FavouriteMovieItem(
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
             Column {
-                // Movie Poster with Favorite Button
                 Box {
                     MainImage(
                         imageUrl = movie.imageUrl,
@@ -75,7 +74,6 @@ fun FavouriteMovieItem(
                         contentScale = ContentScale.Crop
                     )
 
-                    // Gradient overlay for better text visibility
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -90,7 +88,6 @@ fun FavouriteMovieItem(
                             )
                     )
 
-                    // Favorite Button
                     IconButton(
                         onClick = { onFavouriteClick(movie) },
                         modifier = Modifier

@@ -87,7 +87,6 @@ fun MoviesListScreen(
                 ) {
                     item {
                         Column {
-                            // Popular Movies Section
                             Column(
                                 modifier = Modifier.padding(vertical = 16.dp)
                             ) {
@@ -133,7 +132,6 @@ fun MoviesListScreen(
                                 }
                             }
 
-                            // Now Playing Section
                             Column(
                                 modifier = Modifier.padding(vertical = 16.dp)
                             ) {

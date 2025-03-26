@@ -36,7 +36,6 @@ fun App() {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
-        // Show bottom bar only on main screens
         val showBottomBar = currentRoute in listOf(
             Route.MoviesList::class.qualifiedName,
             Route.Search::class.qualifiedName,

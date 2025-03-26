@@ -49,7 +49,6 @@ fun FavouritesScreen(
 ) {
     val visibleItems = remember { mutableStateMapOf<Long, Boolean>() }
 
-    // Initialize visibility for all items
     state.favouriteMovies.forEach { movie ->
         if (!visibleItems.containsKey(movie.id)) {
             visibleItems[movie.id] = true
@@ -82,9 +81,7 @@ fun FavouritesScreen(
                     FavouriteMovieItem(
                         movie = movie,
                         onFavouriteClick = {
-                            // Start removal animation
                             visibleItems[movie.id] = false
-                            // Delay the actual removal to allow animation to complete
                             kotlinx.coroutines.MainScope().launch {
                                 delay(300)
                                 onFavouriteClick(movie)

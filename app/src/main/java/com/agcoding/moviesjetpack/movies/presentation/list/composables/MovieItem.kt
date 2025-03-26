@@ -48,7 +48,6 @@ fun MovieItem(
             .width(if (isHorizontal) 160.dp else 200.dp)
             .clickable { onClick(movie) }
     ) {
-        // Poster Card
         Card(
             shape = RoundedCornerShape(12.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -57,13 +56,12 @@ fun MovieItem(
                 imageUrl = movie.imageUrl,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(0.67f) // Standard movie poster ratio
+                    .aspectRatio(0.67f)
                     .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop
             )
         }
 
-        // Content below poster
         Column(
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
         ) {
@@ -78,7 +76,6 @@ fun MovieItem(
 
             if (isPopular) {
                 Spacer(modifier = Modifier.height(4.dp))
-                // Rating stars
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(2.dp)

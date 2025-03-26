@@ -21,7 +21,7 @@ class MoviesDataSourceImpl @Inject constructor(
         return safeCall<MoviesResponse> {
             httpClient.get {
                 url {
-                    path("movie", type) // Append the type to the URL (e.g., "movie/popular")
+                    path("movie", type)
                 }
                 parameter("language", "en-US")
                 parameter("page", page.toString())

@@ -39,8 +39,8 @@ fun ImageBookmark(
                 .height(184.dp)
         )
         Surface(
-            shadowElevation = 19.dp, // Add elevation here
-            color = Color.Transparent, // Make the background transparent
+            shadowElevation = 19.dp,
+            color = Color.Transparent,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(horizontal = 12.dp)

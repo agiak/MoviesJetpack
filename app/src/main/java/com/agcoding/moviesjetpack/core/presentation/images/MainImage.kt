@@ -36,7 +36,7 @@ fun MainImage(
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(imageUrl)
-                .crossfade(true) // Smooth transition when the image loads
+                .crossfade(true)
                 .build(),
             contentDescription = "Loaded Image",
             modifier = Modifier.fillMaxSize(),

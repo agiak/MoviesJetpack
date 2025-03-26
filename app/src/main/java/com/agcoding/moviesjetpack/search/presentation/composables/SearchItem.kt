@@ -48,7 +48,6 @@ fun SearchItem(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Movie Poster
             Surface(
                 shape = RoundedCornerShape(8.dp),
                 shadowElevation = 4.dp,
@@ -62,7 +61,6 @@ fun SearchItem(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Movie Info
             Column(
                 modifier = Modifier.weight(1f)
             ) {

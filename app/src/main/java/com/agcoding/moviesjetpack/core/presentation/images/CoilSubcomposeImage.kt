@@ -20,7 +20,8 @@ fun CoilSubcomposeImage(url: String, modifier: Modifier = Modifier) {
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
-            .crossfade(true) // Enables smooth transition when image loads
+            .crossfade(true)
+
             .build(),
         contentDescription = "Loaded Image",
         contentScale = ContentScale.Crop,
