@@ -131,10 +131,6 @@ app/
 3. Sync project with Gradle files
 4. Run the app on an emulator or physical device
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
 ## Acknowledgments
 
 - Material Design for the UI/UX guidelines
