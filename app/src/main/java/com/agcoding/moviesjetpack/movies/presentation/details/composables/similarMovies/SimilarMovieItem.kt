@@ -69,7 +69,7 @@ fun SimilarMovieItem(
                 modifier = Modifier.size(16.dp)
             )
             Text(
-                text = "${movie.rating}/5",
+                text = "${movie.rating}/10",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
             )
