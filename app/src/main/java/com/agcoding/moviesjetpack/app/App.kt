@@ -63,8 +63,7 @@ fun App() {
             NavHost(
                 navController = navController,
                 startDestination = Route.MainGraph,
-                modifier = Modifier
-                    .padding(paddingValues)
+                modifier = Modifier.padding(paddingValues)
             ) {
                 navigation<Route.MainGraph>(
                     startDestination = Route.MoviesList
