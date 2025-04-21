@@ -19,15 +19,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.agcoding.moviesjetpack.core.presentation.composables.navigation.BottomNavItem
-import com.agcoding.moviesjetpack.core.presentation.composables.navigation.BottomNavigationBar
-import com.agcoding.moviesjetpack.core.presentation.ext.sharedViewModel
+import com.agcoding.core.shared.presentation.app.Route
+import com.agcoding.core.shared.presentation.composables.navigation.BottomNavItem
+import com.agcoding.core.shared.presentation.ext.sharedViewModel
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.favourites.presentation.FavouritesScreenRoot
 import com.agcoding.moviesjetpack.movies.presentation.SelectedMovieViewModel
 import com.agcoding.moviesjetpack.movies.presentation.details.MovieDetailScreenRoot
 import com.agcoding.moviesjetpack.movies.presentation.list.composables.MoviesListScreenRoot
 import com.agcoding.moviesjetpack.search.presentation.SearchScreenRoot
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 
 @Composable
 fun App() {

@@ -29,10 +29,10 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.list.composables.SearchBar
 import com.agcoding.moviesjetpack.search.presentation.composables.SearchItem
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 import timber.log.Timber
 
 @Composable

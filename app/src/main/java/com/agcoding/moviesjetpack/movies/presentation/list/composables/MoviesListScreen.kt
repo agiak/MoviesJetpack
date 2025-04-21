@@ -26,12 +26,12 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.agcoding.moviesjetpack.core.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItems
 import com.agcoding.moviesjetpack.movies.presentation.list.MoviesListUiState
 import com.agcoding.moviesjetpack.movies.presentation.list.MoviesViewModel
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 
 @Composable
 fun MoviesListScreenRoot(

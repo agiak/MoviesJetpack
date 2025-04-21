@@ -20,10 +20,10 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.favourites.presentation.composables.FavouriteMovieItem
 import com.agcoding.moviesjetpack.movies.data.uiMovies
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.agcoding.moviesjetpack.core.presentation.images.MainImage
+import com.agcoding.core.shared.presentation.images.MainImage
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 
 @Composable

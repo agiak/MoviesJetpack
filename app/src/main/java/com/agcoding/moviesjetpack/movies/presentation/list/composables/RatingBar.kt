@@ -10,8 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.agcoding.moviesjetpack.R
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
+import com.agcoding.core.shared.R
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
+
 
 @Composable
 fun RatingBar(

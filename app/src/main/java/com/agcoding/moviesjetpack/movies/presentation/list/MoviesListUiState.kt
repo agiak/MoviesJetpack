@@ -1,7 +1,7 @@
 package com.agcoding.moviesjetpack.movies.presentation.list
 
 import androidx.paging.PagingData
-import com.agcoding.moviesjetpack.core.presentation.UiText
+import com.agcoding.core.shared.presentation.UiText
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow

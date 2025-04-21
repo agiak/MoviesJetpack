@@ -1,6 +1,6 @@
 package com.agcoding.moviesjetpack.movies.data.mappers
 
-import com.agcoding.moviesjetpack.core.presentation.ext.toFormattedDate
+import com.agcoding.core.shared.presentation.ext.toFormattedDate
 import com.agcoding.moviesjetpack.movies.data.network.details.AuthorDetailsNetwork
 import com.agcoding.moviesjetpack.movies.data.network.details.ReviewNetwork
 import com.agcoding.moviesjetpack.movies.domain.details.AuthDetails

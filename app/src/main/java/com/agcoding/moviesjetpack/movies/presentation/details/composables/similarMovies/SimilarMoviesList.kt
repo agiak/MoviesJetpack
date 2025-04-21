@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
-import com.agcoding.moviesjetpack.core.presentation.composables.loaders.MainLoader
-import com.agcoding.moviesjetpack.core.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.presentation.composables.loaders.MainLoader
+import com.agcoding.core.shared.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
+import com.agcoding.core.shared.theme.primaryLight
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItems
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
-import com.agcoding.moviesjetpack.ui.theme.primaryLight
 
 internal const val SIMILAR_MOVIE_ITEM_HEIGHT = 124
 

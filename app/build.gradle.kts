@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.agcoding.moviesjetpack"
-    compileSdk = 35
+    compileSdk = libs.versions.build.compile.sdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.agcoding.moviesjetpack"
-        minSdk = 26
-        targetSdk = 35
+        minSdk = libs.versions.build.min.sdk.get().toInt()
+        targetSdk = libs.versions.build.compile.sdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -34,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = libs.versions.java.get()
     }
     buildFeatures {
         buildConfig = true
@@ -52,6 +52,18 @@ android {
 dependencies {
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    // Core modules
+    implementation(project(":core:shared"))
+    implementation(project(":splash"))
+
+    // Network modules
+    implementation(project(":core:network:impl"))
+    implementation(project(":core:network:public"))
+
+    // Storage modules
+    implementation(project(":core:storage:impl"))
+    implementation(project(":core:storage:public"))
 
     // Core
     implementation(libs.androidx.core.ktx)
@@ -81,11 +93,8 @@ dependencies {
     // Paging
     implementation(libs.bundles.paging)
 
-    // Loging
+    // Logging
     implementation(libs.timber)
-
-    // Image loading
-    implementation(libs.bundles.coil)
 
     // Testing
     testImplementation(libs.paging.test)

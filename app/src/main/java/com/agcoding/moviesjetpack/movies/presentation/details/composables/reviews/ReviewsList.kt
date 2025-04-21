@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.agcoding.moviesjetpack.core.presentation.composables.loaders.MainLoader
-import com.agcoding.moviesjetpack.core.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.presentation.composables.loaders.MainLoader
+import com.agcoding.core.shared.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.theme.primaryLight
 import com.agcoding.moviesjetpack.movies.domain.details.Review
-import com.agcoding.moviesjetpack.ui.theme.primaryLight
 
 @Composable
 fun ReviewsList(

@@ -31,11 +31,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.agcoding.moviesjetpack.core.presentation.images.MainImage
+import com.agcoding.core.shared.presentation.images.MainImage
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
+import com.agcoding.core.shared.theme.primaryLight
 import com.agcoding.moviesjetpack.movies.domain.details.AuthDetails
 import com.agcoding.moviesjetpack.movies.domain.details.Review
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
-import com.agcoding.moviesjetpack.ui.theme.primaryLight
 
 @Composable
 fun ReviewItem(

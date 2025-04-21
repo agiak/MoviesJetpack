@@ -2,8 +2,8 @@ package com.agcoding.moviesjetpack.movies.data.datasource.details
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.agcoding.moviesjetpack.core.data.mappers.toPagingError
-import com.agcoding.moviesjetpack.core.domain.Result
+import com.agcoding.core.shared.data.mappers.toPagingError
+import com.agcoding.core.shared.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.details.SimilarMovieNetwork
 
 private const val STARTING_PAGE_INDEX = 1

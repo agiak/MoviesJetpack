@@ -19,9 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.agcoding.moviesjetpack.R
-import com.agcoding.moviesjetpack.core.presentation.images.MainImage
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
+import com.agcoding.core.shared.R
+import com.agcoding.core.shared.presentation.images.MainImage
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 
 @Composable
 fun ImageBookmark(

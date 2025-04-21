@@ -1,8 +1,8 @@
 package com.agcoding.moviesjetpack.search.data.datasource.remote
 
-import com.agcoding.moviesjetpack.core.domain.DataError
-import com.agcoding.moviesjetpack.core.domain.Result
-import com.agcoding.moviesjetpack.network.safeCall
+import com.agcoding.core.network.safeCall
+import com.agcoding.core.shared.domain.DataError
+import com.agcoding.core.shared.domain.Result
 import com.agcoding.moviesjetpack.search.data.network.SearchMoviesResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get

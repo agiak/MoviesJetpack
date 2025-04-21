@@ -29,9 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.agcoding.moviesjetpack.core.presentation.composables.buttons.BackButton
-import com.agcoding.moviesjetpack.core.presentation.images.MainImage
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
+import com.agcoding.core.shared.presentation.composables.buttons.BackButton
+import com.agcoding.core.shared.presentation.images.MainImage
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 
 @Composable
 fun MovieImage(

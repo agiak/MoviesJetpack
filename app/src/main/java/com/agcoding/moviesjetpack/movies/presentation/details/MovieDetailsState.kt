@@ -1,6 +1,6 @@
 package com.agcoding.moviesjetpack.movies.presentation.details
 
-import com.agcoding.moviesjetpack.core.presentation.UiText
+import com.agcoding.core.shared.presentation.UiText
 import com.agcoding.moviesjetpack.movies.domain.details.CreditsDetails
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 

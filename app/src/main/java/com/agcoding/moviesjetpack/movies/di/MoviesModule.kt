@@ -1,6 +1,6 @@
 package com.agcoding.moviesjetpack.movies.di
 
-import com.agcoding.moviesjetpack.core.domain.dispatchers.IDispatchers
+import com.agcoding.core.shared.domain.dispatchers.IDispatchers
 import com.agcoding.moviesjetpack.favoutites.FavouritesUseCase
 import com.agcoding.moviesjetpack.favoutites.IsFavouriteUseCase
 import com.agcoding.moviesjetpack.movies.data.datasource.details.MovieDetailsDataSource

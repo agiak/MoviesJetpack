@@ -1,8 +1,8 @@
 package com.agcoding.moviesjetpack.favoutites
 
-import com.agcoding.moviesjetpack.core.data.models.FavouriteMovieDB
-import com.agcoding.moviesjetpack.core.domain.dispatchers.IDispatchers
-import com.agcoding.moviesjetpack.storage.db.FavouriteMovieDao
+import com.agcoding.core.shared.domain.dispatchers.IDispatchers
+import com.agcoding.core.storage.FavouriteMovieDB
+import com.agcoding.core.storage.FavouriteMovieDao
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,6 +13,7 @@ class FavouriteUseCaseImpl @Inject constructor(
     private val localDao: FavouriteMovieDao,
     private val isMovieFavourite: IsFavouriteUseCase,
 ) : FavouritesUseCase {
+
     override suspend fun invoke(movie: FavouriteMovieDB) {
         withContext(dispatchers.backgroundThread()) {
             if (isMovieFavourite(movie.id).not())

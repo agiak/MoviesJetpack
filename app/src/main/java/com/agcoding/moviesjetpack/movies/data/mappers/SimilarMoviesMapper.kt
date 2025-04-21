@@ -1,7 +1,7 @@
 package com.agcoding.moviesjetpack.movies.data.mappers
 
-import com.agcoding.moviesjetpack.core.presentation.ext.mapToDate
-import com.agcoding.moviesjetpack.core.presentation.ext.roundToTwoDecimal
+import com.agcoding.core.shared.presentation.ext.mapToDate
+import com.agcoding.core.shared.presentation.ext.roundToTwoDecimal
 import com.agcoding.moviesjetpack.movies.data.network.details.SimilarMovieNetwork
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 

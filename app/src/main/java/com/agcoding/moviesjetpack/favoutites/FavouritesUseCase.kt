@@ -1,6 +1,6 @@
 package com.agcoding.moviesjetpack.favoutites
 
-import com.agcoding.moviesjetpack.core.data.models.FavouriteMovieDB
+import com.agcoding.core.storage.FavouriteMovieDB
 
 fun interface FavouritesUseCase {
 

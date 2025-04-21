@@ -1,8 +1,8 @@
 package com.agcoding.moviesjetpack.movies.domain.list
 
 import androidx.paging.PagingData
-import com.agcoding.moviesjetpack.core.domain.DataError
-import com.agcoding.moviesjetpack.core.domain.Result
+import com.agcoding.core.shared.domain.DataError
+import com.agcoding.core.shared.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.MoviesResponse
 import kotlinx.coroutines.flow.Flow
 

@@ -2,8 +2,8 @@ package com.agcoding.moviesjetpack.movies.data.datasource.list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.agcoding.moviesjetpack.core.data.mappers.toPagingError
-import com.agcoding.moviesjetpack.core.domain.Result
+import com.agcoding.core.shared.data.mappers.toPagingError
+import com.agcoding.core.shared.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.MovieNetwork
 import timber.log.Timber
 import javax.inject.Inject

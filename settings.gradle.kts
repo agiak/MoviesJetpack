@@ -21,4 +21,17 @@ dependencyResolutionManagement {
 
 rootProject.name = "MoviesJetpack"
 include(":app")
- 
+
+// Core
+include(":core")
+
+// Network
+include(":core:network")
+include(":core:network:public")
+include(":core:network:impl")
+
+include(":core:shared")
+include(":splash")
+include(":core:storage")
+include(":core:storage:public")
+include(":core:storage:impl")

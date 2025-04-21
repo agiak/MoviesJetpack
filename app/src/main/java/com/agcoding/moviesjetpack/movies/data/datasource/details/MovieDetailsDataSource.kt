@@ -1,7 +1,7 @@
 package com.agcoding.moviesjetpack.movies.data.datasource.details
 
-import com.agcoding.moviesjetpack.core.domain.DataError
-import com.agcoding.moviesjetpack.core.domain.Result
+import com.agcoding.core.shared.domain.DataError
+import com.agcoding.core.shared.domain.Result
 import com.agcoding.moviesjetpack.movies.data.network.details.CreditsResponse
 import com.agcoding.moviesjetpack.movies.data.network.details.MovieDetailsResponse
 import com.agcoding.moviesjetpack.movies.data.network.details.ReviewsResponse

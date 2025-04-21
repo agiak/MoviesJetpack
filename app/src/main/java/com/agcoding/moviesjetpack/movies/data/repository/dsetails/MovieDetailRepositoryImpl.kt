@@ -2,9 +2,9 @@ package com.agcoding.moviesjetpack.movies.data.repository.dsetails
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.agcoding.moviesjetpack.core.domain.DataError
-import com.agcoding.moviesjetpack.core.domain.Result
-import com.agcoding.moviesjetpack.core.domain.dispatchers.IDispatchers
+import com.agcoding.core.shared.domain.DataError
+import com.agcoding.core.shared.domain.Result
+import com.agcoding.core.shared.domain.dispatchers.IDispatchers
 import com.agcoding.moviesjetpack.favoutites.FavouritesUseCase
 import com.agcoding.moviesjetpack.favoutites.IsFavouriteUseCase
 import com.agcoding.moviesjetpack.movies.data.datasource.details.MovieDetailsDataSource

@@ -1,7 +1,7 @@
 package com.agcoding.moviesjetpack.search.data.datasource.remote
 
-import com.agcoding.moviesjetpack.core.domain.DataError
-import com.agcoding.moviesjetpack.core.domain.Result
+import com.agcoding.core.shared.domain.DataError
+import com.agcoding.core.shared.domain.Result
 import com.agcoding.moviesjetpack.search.data.network.SearchMoviesResponse
 
 fun interface SearchRemoteDataSource {

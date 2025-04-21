@@ -1,8 +1,8 @@
 package com.agcoding.moviesjetpack.movies.data.mappers
 
-import com.agcoding.moviesjetpack.core.data.models.FavouriteMovieDB
-import com.agcoding.moviesjetpack.core.presentation.ext.mapToDate
-import com.agcoding.moviesjetpack.core.presentation.ext.roundToTwoDecimal
+import com.agcoding.core.shared.presentation.ext.mapToDate
+import com.agcoding.core.shared.presentation.ext.roundToTwoDecimal
+import com.agcoding.core.storage.FavouriteMovieDB
 import com.agcoding.moviesjetpack.movies.data.network.details.MovieDetailsResponse
 import com.agcoding.moviesjetpack.movies.presentation.details.MovieDetails
 

@@ -10,9 +10,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.app.App
-import com.agcoding.moviesjetpack.splash.presentation.SplashViewModel
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
+import com.agcoding.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

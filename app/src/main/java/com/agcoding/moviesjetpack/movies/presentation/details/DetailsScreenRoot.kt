@@ -25,6 +25,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
+import com.agcoding.core.shared.theme.primaryLight
 import com.agcoding.moviesjetpack.movies.domain.details.Review
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.GenreChips
@@ -34,8 +36,6 @@ import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDum
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItemsReviews
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.reviews.ReviewsList
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.similarMovies.SimilarMoviesList
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
-import com.agcoding.moviesjetpack.ui.theme.primaryLight
 
 @Composable
 fun MovieDetailScreenRoot(

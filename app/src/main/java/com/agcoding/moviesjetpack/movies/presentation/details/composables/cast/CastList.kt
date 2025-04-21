@@ -17,8 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.movies.domain.details.CastDetails
-import com.agcoding.moviesjetpack.ui.theme.MoviesJetpackTheme
 
 @Composable
 fun CastList(

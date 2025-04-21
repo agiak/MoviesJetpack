@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.agcoding.moviesjetpack.app.Route
-import com.agcoding.moviesjetpack.core.data.extensions.toUiText
-import com.agcoding.moviesjetpack.core.domain.onError
-import com.agcoding.moviesjetpack.core.domain.onSuccess
+import com.agcoding.core.shared.data.extensions.toUiText
+import com.agcoding.core.shared.domain.onError
+import com.agcoding.core.shared.domain.onSuccess
+import com.agcoding.core.shared.presentation.app.Route
 import com.agcoding.moviesjetpack.favoutites.FavouritesUseCase
 import com.agcoding.moviesjetpack.movies.data.mappers.toFavouriteMovieDB
 import com.agcoding.moviesjetpack.movies.domain.details.MovieDetailsRepository

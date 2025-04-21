@@ -1,11 +1,11 @@
 package com.agcoding.moviesjetpack.favourites.data.repository
 
-import com.agcoding.moviesjetpack.core.domain.dispatchers.IDispatchers
+import com.agcoding.core.shared.domain.dispatchers.IDispatchers
+import com.agcoding.core.storage.FavouriteMovieDao
 import com.agcoding.moviesjetpack.favourites.data.mappers.toMovie
 import com.agcoding.moviesjetpack.favourites.domain.FavouritesRepository
 import com.agcoding.moviesjetpack.favoutites.FavouritesUseCase
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
-import com.agcoding.moviesjetpack.storage.db.FavouriteMovieDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
