@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -26,17 +26,19 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.agcoding.core.shared.presentation.composables.messages.ErrorMessage
+import com.agcoding.core.shared.presentation.UiText
+import com.agcoding.core.shared.presentation.composables.loaders.MainLoader
 import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
 import com.agcoding.moviesjetpack.movies.presentation.details.composables.getDummyLazyPagingItems
+import com.agcoding.moviesjetpack.movies.presentation.home.composables.HomeError
 import com.agcoding.moviesjetpack.movies.presentation.list.MoviesListUiState
 import com.agcoding.moviesjetpack.movies.presentation.list.MoviesViewModel
 
 @Composable
 fun MoviesListScreenRoot(
-    viewModel: MoviesViewModel = hiltViewModel(),
     onSelectedMovie: (Movie) -> Unit,
+    viewModel: MoviesViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val popularMovies = state.popularMovies.collectAsLazyPagingItems()
@@ -46,7 +48,8 @@ fun MoviesListScreenRoot(
         state = state,
         popularMovies = popularMovies,
         nowPlayingMovies = nowPlayingMovies,
-        onSelectedMovie = onSelectedMovie
+        onSelectedMovie = onSelectedMovie,
+        onRetry = { viewModel.onRetry() }
     )
 }
 
@@ -56,121 +59,119 @@ fun MoviesListScreen(
     popularMovies: LazyPagingItems<Movie>,
     nowPlayingMovies: LazyPagingItems<Movie>,
     onSelectedMovie: (Movie) -> Unit,
+    onRetry: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         when {
-            popularMovies.loadState.refresh is LoadState.Error -> {
-                ErrorMessage(
-                    message = (popularMovies.loadState.refresh as LoadState.Error)
-                        .error.message ?: ""
+            state.isLoading -> {
+                MainLoader(modifier = Modifier.size(48.dp))
+            }
+
+            state.error != null -> {
+                HomeError(
+                    error = state.error,
+                    onRetry = onRetry
                 )
             }
 
+            popularMovies.loadState.refresh is LoadState.Error &&
             nowPlayingMovies.loadState.refresh is LoadState.Error -> {
-                ErrorMessage(
-                    message = (nowPlayingMovies.loadState.refresh as LoadState.Error)
-                        .error.message ?: ""
+                // Both sections failed to load
+                HomeError(
+                    error = state.error ?: UiText.DynamicString("Failed to load movies"),
+                    onRetry = onRetry
                 )
             }
-
-            popularMovies.loadState.refresh is LoadState.Loading ||
-                    nowPlayingMovies.loadState.refresh is LoadState.Loading -> {
-                CircularProgressIndicator()
-            }
-
             else -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize()
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(vertical = 16.dp)
                 ) {
-                    item {
-                        Column {
-                            Column(
-                                modifier = Modifier.padding(vertical = 16.dp)
-                            ) {
-                                Text(
-                                    text = "Popular Movies",
-                                    style = MaterialTheme.typography.titleLarge.copy(
-                                        fontWeight = FontWeight.Bold
-                                    ),
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                )
-                                Spacer(modifier = Modifier.height(16.dp))
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                ) {
-                                    items(
-                                        count = popularMovies.itemCount,
-                                        key = popularMovies.itemKey { it.id },
-                                    ) { index ->
-                                        val item = popularMovies[index]
-                                        if (item != null) {
-                                            MovieItem(
-                                                movie = item,
-                                                onClick = onSelectedMovie,
-                                                isHorizontal = true,
-                                                isPopular = true
-                                            )
-                                        }
-                                    }
-
-                                    if (popularMovies.loadState.append is LoadState.Loading) {
-                                        item {
-                                            Box(
-                                                modifier = Modifier
-                                                    .width(160.dp)
-                                                    .padding(16.dp),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                CircularProgressIndicator()
-                                            }
-                                        }
-                                    }
+                    // Popular Movies Section
+                    if (popularMovies.loadState.refresh !is LoadState.Error) {
+                        Text(
+                            text = "Popular Movies",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        ) {
+                            items(
+                                count = popularMovies.itemCount,
+                                key = popularMovies.itemKey { it.id },
+                            ) { index ->
+                                val item = popularMovies[index]
+                                if (item != null) {
+                                    MovieItem(
+                                        movie = item,
+                                        onClick = onSelectedMovie,
+                                        isHorizontal = true,
+                                        isPopular = true
+                                    )
                                 }
                             }
 
-                            Column(
-                                modifier = Modifier.padding(vertical = 16.dp)
-                            ) {
-                                Text(
-                                    text = "Now Playing",
-                                    style = MaterialTheme.typography.titleLarge.copy(
-                                        fontWeight = FontWeight.Bold
-                                    ),
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                )
-                                Spacer(modifier = Modifier.height(16.dp))
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                ) {
-                                    items(
-                                        count = nowPlayingMovies.itemCount,
-                                        key = nowPlayingMovies.itemKey { it.id },
-                                    ) { index ->
-                                        val item = nowPlayingMovies[index]
-                                        if (item != null) {
-                                            NowPlayingItem(
-                                                movie = item,
-                                                onClick = onSelectedMovie
-                                            )
-                                        }
+                            if (popularMovies.loadState.append is LoadState.Loading) {
+                                item {
+                                    Box(
+                                        modifier = Modifier
+                                            .width(160.dp)
+                                            .padding(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator()
                                     }
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(24.dp))
+                    }
 
-                                    if (nowPlayingMovies.loadState.append is LoadState.Loading) {
-                                        item {
-                                            Box(
-                                                modifier = Modifier
-                                                    .width(160.dp)
-                                                    .padding(16.dp),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                CircularProgressIndicator()
-                                            }
-                                        }
+                    // Now Playing Movies Section
+                    if (nowPlayingMovies.loadState.refresh !is LoadState.Error) {
+                        Text(
+                            text = "Now Playing",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        ) {
+                            items(
+                                count = nowPlayingMovies.itemCount,
+                                key = nowPlayingMovies.itemKey { it.id },
+                            ) { index ->
+                                val item = nowPlayingMovies[index]
+                                if (item != null) {
+                                    NowPlayingItem(
+                                        movie = item,
+                                        onClick = onSelectedMovie
+                                    )
+                                }
+                            }
+
+                            if (nowPlayingMovies.loadState.append is LoadState.Loading) {
+                                item {
+                                    Box(
+                                        modifier = Modifier
+                                            .width(160.dp)
+                                            .padding(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator()
                                     }
                                 }
                             }
@@ -190,7 +191,8 @@ private fun MoviesListScreenPreview() {
             state = MoviesListUiState(),
             popularMovies = getDummyLazyPagingItems(),
             nowPlayingMovies = getDummyLazyPagingItems(),
-            onSelectedMovie = {}
+            onSelectedMovie = {},
+            onRetry = {}
         )
     }
 }
