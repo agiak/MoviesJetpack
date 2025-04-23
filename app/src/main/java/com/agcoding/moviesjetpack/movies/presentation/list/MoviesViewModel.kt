@@ -30,7 +30,7 @@ class MoviesViewModel @Inject constructor(
     fun onRetry() {
         viewModelScope.launch {
             _state.value = MoviesListUiState(isLoading = true)
-            //delay(3000)
+            moviesRepository.retry()
             loadMovies()
         }
     }

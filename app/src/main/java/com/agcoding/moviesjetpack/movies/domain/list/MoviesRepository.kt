@@ -17,4 +17,6 @@ interface MoviesRepository {
     val nowPlayingMoviesPagingFlow: Flow<PagingData<Movie>>
 
     suspend fun onFavouriteChanged(movie: Movie)
+
+    fun retry()
 }

@@ -22,32 +22,54 @@ import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesDataSource: MoviesDataSource,
-    private val popularMoviesPagingSource: MoviesPagingSource,
-    private val nowPlayingMoviesPagingSource: MoviesPagingSource,
     private val favouritesUseCase: FavouritesUseCase,
     private val isFavouriteUseCase: IsFavouriteUseCase,
     private val dispatchers: IDispatchers
 ) : MoviesRepository {
+
+    private var popularMoviesFlow: Flow<PagingData<Movie>> = createPopularMoviesFlow()
+    private var nowPlayingMoviesFlow: Flow<PagingData<Movie>> = createNowPlayingMoviesFlow()
+
+    override val popularMoviesPagingFlow: Flow<PagingData<Movie>>
+        get() = popularMoviesFlow
+
+    override val nowPlayingMoviesPagingFlow: Flow<PagingData<Movie>>
+        get() = nowPlayingMoviesFlow
+
+    override fun retry() {
+        popularMoviesFlow = createPopularMoviesFlow()
+        nowPlayingMoviesFlow = createNowPlayingMoviesFlow()
+    }
+
+    private fun createPopularMoviesFlow(): Flow<PagingData<Movie>> =
+        MoviesPagerFactory.create(
+            MoviesPagingSource(
+                dataSource = moviesDataSource,
+                moviesType = "popular"
+            )
+        ).flow.map {
+            it.map { movieNetwork ->
+                movieNetwork.toMovie().apply { isFavourite = isFavouriteUseCase(this.id) }
+            }
+        }
+
+    private fun createNowPlayingMoviesFlow(): Flow<PagingData<Movie>> =
+        MoviesPagerFactory.create(
+            MoviesPagingSource(
+                dataSource = moviesDataSource,
+                moviesType = "now_playing"
+            )
+        ).flow.map {
+            it.map { movieNetwork ->
+                movieNetwork.toMovie().apply { isFavourite = isFavouriteUseCase(this.id) }
+            }
+        }
 
     override suspend fun fetchMovies(
         page: Int,
         type: String
     ): Result<MoviesResponse, DataError.Remote> =
         moviesDataSource.getMovies(page, type)
-
-    override val popularMoviesPagingFlow: Flow<PagingData<Movie>>
-        get() = MoviesPagerFactory.create(popularMoviesPagingSource).flow.map {
-            it.map { movieNetwork ->
-                movieNetwork.toMovie().apply { isFavourite = isFavouriteUseCase(this.id) }
-            }
-        }
-
-    override val nowPlayingMoviesPagingFlow: Flow<PagingData<Movie>>
-        get() = MoviesPagerFactory.create(nowPlayingMoviesPagingSource).flow.map {
-            it.map { movieNetwork ->
-                movieNetwork.toMovie().apply { isFavourite = isFavouriteUseCase(this.id) }
-            }
-        }
 
     override suspend fun onFavouriteChanged(movie: Movie) =
         withContext(dispatchers.backgroundThread()) {
