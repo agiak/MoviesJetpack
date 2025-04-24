@@ -1,4 +1,4 @@
-package com.agcoding.core.shared.data.extensions
+package com.agcoding.core.shared.data.mappers
 
 import com.agcoding.core.shared.R
 import com.agcoding.core.shared.domain.DataError

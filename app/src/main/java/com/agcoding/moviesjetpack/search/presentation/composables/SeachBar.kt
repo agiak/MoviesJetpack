@@ -1,11 +1,12 @@
-package com.agcoding.moviesjetpack.movies.presentation.list.composables
+package com.agcoding.moviesjetpack.search.presentation.composables
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -22,11 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-
+import androidx.compose.ui.unit.dp
 import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.R
 
@@ -38,9 +40,11 @@ fun SearchBar(
     onTextFieldClicked: () -> Unit,
     isEnable: Boolean = true,
     isAutoFocus: Boolean = false,
+    isLoading: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
         value = searchQuery,
@@ -70,6 +74,7 @@ fun SearchBar(
         keyboardActions = KeyboardActions(
             onSearch = {
                 onImeSearch()
+                focusManager.clearFocus()
             }
         ),
         keyboardOptions = KeyboardOptions(
@@ -77,9 +82,13 @@ fun SearchBar(
             imeAction = ImeAction.Search
         ),
         trailingIcon = {
-            AnimatedVisibility(
-                visible = searchQuery.isNotBlank()
-            ) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    strokeWidth = 2.dp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            } else {
                 IconButton(
                     onClick = {
                         onSearchQueryChange("")
@@ -88,7 +97,7 @@ fun SearchBar(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onBackground
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -109,7 +118,6 @@ fun SearchBar(
         }
     }
 }
-
 
 @PreviewLightDark
 @Composable

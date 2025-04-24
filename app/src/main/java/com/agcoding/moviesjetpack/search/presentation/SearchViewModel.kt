@@ -12,12 +12,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,14 +26,17 @@ class SearchViewModel @Inject constructor(
     private val repository: SearchRepository
 ) : ViewModel() {
 
+    private val _uiState = MutableStateFlow(SearchUiState())
+    val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
+
     private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val searchMovies = _searchQuery
+    val movies = _searchQuery
         .debounce(1000)
         .flatMapLatest { query ->
-            Timber.d("query $query")
+            _uiState.update { it.copy(searchQuery = query, isLoading = false) }
+
             if (query.isBlank()) {
                 flowOf(PagingData.empty())
             } else {
@@ -45,7 +49,9 @@ class SearchViewModel @Inject constructor(
         }.cachedIn(viewModelScope)
 
     fun updateQuery(q: String) {
-        Timber.d("updateQuery $q")
-        _searchQuery.update { q }
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, searchQuery = q) }
+            _searchQuery.update { q }
+        }
     }
 }

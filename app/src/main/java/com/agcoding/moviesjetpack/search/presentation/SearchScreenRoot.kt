@@ -17,38 +17,43 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.agcoding.core.shared.theme.MoviesJetpackTheme
 import com.agcoding.moviesjetpack.movies.domain.list.Movie
-import com.agcoding.moviesjetpack.movies.presentation.list.composables.SearchBar
+import com.agcoding.moviesjetpack.search.presentation.composables.SearchBar
 import com.agcoding.moviesjetpack.search.presentation.composables.SearchItem
-import timber.log.Timber
 
 @Composable
 fun SearchScreenRoot(
     onMovieClick: (Movie) -> Unit,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
-    val searchItems = viewModel.searchMovies.collectAsLazyPagingItems()
-    val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsState()
+    val searchItems = viewModel.movies.collectAsLazyPagingItems()
 
     SearchScreen(
         onMovieClick = onMovieClick,
         searchItems = searchItems,
-        searchQuery = searchQuery.value,
-        onSearchQueryChange = {
-            viewModel.updateQuery(it)
+        uiState = uiState,
+        onSearchQueryChange = { query ->
+            viewModel.updateQuery(query)
+        },
+        onRetry = {
+            searchItems.retry()
         }
     )
 }
@@ -57,10 +62,10 @@ fun SearchScreenRoot(
 fun SearchScreen(
     onMovieClick: (Movie) -> Unit,
     onSearchQueryChange: (String) -> Unit,
+    onRetry: () -> Unit,
     searchItems: LazyPagingItems<Movie>,
-    searchQuery: String,
+    uiState: SearchUiState,
 ) {
-    Timber.d("searched items ${searchItems.itemCount}")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -69,50 +74,78 @@ fun SearchScreen(
     ) {
         SearchBar(
             isAutoFocus = true,
-            searchQuery = searchQuery,
-            onSearchQueryChange = { query ->
-                onSearchQueryChange(query)
-            },
+            searchQuery = uiState.searchQuery,
+            onSearchQueryChange = onSearchQueryChange,
             onImeSearch = {
-                onSearchQueryChange(searchQuery)
+                onSearchQueryChange(uiState.searchQuery)
             },
             onTextFieldClicked = {},
+            isLoading = uiState.isLoading,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
         )
         Spacer(modifier = Modifier.size(16.dp))
-        AnimatedVisibility(
-            visible = searchItems.itemCount != 0,
-            enter = fadeIn(animationSpec = tween(durationMillis = 500)),
-            exit = fadeOut(animationSpec = tween(durationMillis = 500))
-        ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                items(
-                    count = searchItems.itemCount,
-                    key = searchItems.itemKey { it.id },
-                ) { index ->
-                    val item = searchItems[index]
-                    if (item != null) {
-                        SearchItem(
-                            movie = item,
-                            onClick = { onMovieClick(item) }
+
+        when (val refreshState = searchItems.loadState.refresh) {
+            is LoadState.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = refreshState.error.message.toString(),
+                            color = MaterialTheme.colorScheme.error
                         )
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Button(
+                            onClick = onRetry
+                        ) {
+                            Text(text = "Retry")
+                        }
                     }
                 }
-                item {
-                    if (searchItems.loadState.append is LoadState.Loading) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
+            }
+
+            else -> {
+                AnimatedVisibility(
+                    visible = searchItems.itemCount != 0,
+                    enter = fadeIn(animationSpec = tween(durationMillis = 500)),
+                    exit = fadeOut(animationSpec = tween(durationMillis = 500))
+                ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        items(
+                            count = searchItems.itemCount,
+                            key = searchItems.itemKey { it.id },
+                        ) { index ->
+                            val item = searchItems[index]
+                            if (item != null) {
+                                SearchItem(
+                                    movie = item,
+                                    onClick = { onMovieClick(item) }
+                                )
+                            }
+                        }
+                        item {
+                            if (searchItems.loadState.append is LoadState.Loading) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator()
+                                }
+                            }
                         }
                     }
                 }

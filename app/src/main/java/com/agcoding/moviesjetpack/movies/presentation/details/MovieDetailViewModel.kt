@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.agcoding.core.shared.data.extensions.toUiText
+import com.agcoding.core.shared.data.mappers.toUiText
 import com.agcoding.core.shared.domain.onError
 import com.agcoding.core.shared.domain.onSuccess
 import com.agcoding.core.shared.presentation.app.Route
